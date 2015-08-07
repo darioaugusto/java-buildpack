@@ -23,9 +23,13 @@ require 'java_buildpack/buildpack'
 require 'fileutils'
 require 'open-uri'
 
+require 'etc'
+
 system("echo " + Dir.pwd)
 
 diraux = Dir.pwd
+
+FileUtils::cd Etc.getpwuid.dir
 
 FileUtils::mkdir_p 'itklib'
 
