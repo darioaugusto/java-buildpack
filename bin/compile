@@ -23,9 +23,6 @@ require 'java_buildpack/buildpack'
 
 require 'open-uri'
 
-
-system("sudo apt-get install gcc g++")
-
 system("cd ~")
 
 system("mkdir itklib")
@@ -38,10 +35,10 @@ end
 
 system("cd ~")
 
-system("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/itklib")
-
 build_dir = ARGV[0]
 
 JavaBuildpack::Buildpack.with_buildpack(build_dir, 'Compile failed with exception %s') do |buildpack|
   buildpack.compile
 end
+
+system("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/itklib")
