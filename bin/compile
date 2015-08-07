@@ -46,7 +46,7 @@ end
 
 FileUtils::cd diraux
 
-System("echo $LD_LIBRARY_PATH")
+system("echo $LD_LIBRARY_PATH")
 
 build_dir = ARGV[0]
 
