@@ -23,6 +23,9 @@ require 'java_buildpack/buildpack'
 require 'fileutils'
 require 'open-uri'
 
+system("echo " + Dir.pwd)
+
+
 FileUtils::mkdir_p 'itklib'
 FileUtils::cd 'itklib'
 
