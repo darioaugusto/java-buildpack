@@ -29,7 +29,7 @@ system("mkdir itklib")
 
 system("cd itklib")
 
-system("curl https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so")
+system("wget https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so")
 
 system("cd ~")
 
