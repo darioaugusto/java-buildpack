@@ -25,6 +25,7 @@ require 'open-uri'
 
 system("echo " + Dir.pwd)
 
+diraux = Dir.pwd
 
 FileUtils::mkdir_p 'itklib'
 
@@ -42,6 +43,10 @@ system("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"+Dir.pwd+"/itklib")
 for a in Dir.entries(Dir.pwd)
 	system("echo " + a)
 end
+
+FileUtils::cd diraux
+
+System("echo $LD_LIBRARY_PATH")
 
 build_dir = ARGV[0]
 
