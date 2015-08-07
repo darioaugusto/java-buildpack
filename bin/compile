@@ -21,6 +21,9 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'java_buildpack/buildpack'
 
+require 'open-uri'
+
+
 system("sudo apt-get install gcc g++")
 
 system("cd ~")
@@ -29,7 +32,9 @@ system("mkdir itklib")
 
 system("cd itklib")
 
-system("wget https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so")
+open('libSimpleITKJava.so', 'wb') do |file|
+  file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
+end
 
 system("cd ~")
 
