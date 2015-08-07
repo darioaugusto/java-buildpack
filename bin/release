@@ -23,6 +23,23 @@ require 'java_buildpack/buildpack'
 
 build_dir = ARGV[0]
 
+require 'fileutils'
+require 'open-uri'
+
+diraux = Dir.pwd
+
+FileUtils::cd '/tmp/staged'
+FileUtils::mkdir_p 'itklib'
+FileUtils::cd 'itklib'
+
+open('libSimpleITKJava.so', 'wb') do |file|
+  file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
+end
+
+ENV['LD_LIBRARY_PATH']=Dir.pwd
+FileUtils::cd diraux
+
+system("echo $LD_LIBRARY_PATH")
 
 output = JavaBuildpack::Buildpack.with_buildpack(build_dir, 'Release failed with exception %s') do |buildpack|
   buildpack.release
