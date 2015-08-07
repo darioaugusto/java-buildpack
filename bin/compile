@@ -38,7 +38,8 @@ FileUtils::cd 'itklib'
 open('libSimpleITKJava.so', 'wb') do |file|
   file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
 end
-system("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"+Dir.pwd+"/itklib")
+
+ENV['LD_LIBRARY_PATH']=Dir.pwd+"/itklib"
 
 for a in Dir.entries(Dir.pwd)
 	system("echo " + a)
