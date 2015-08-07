@@ -20,15 +20,11 @@ $stderr.sync = true
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'java_buildpack/buildpack'
+require 'fileutils'
+require 'open-uri'
 
 build_dir = ARGV[0]
 
-output = JavaBuildpack::Buildpack.with_buildpack(build_dir, 'Release failed with exception %s') do |buildpack|
-  buildpack.release
-end
-
-require 'fileutils'
-require 'open-uri'
 
 system("echo " + Dir.pwd)
 
@@ -55,5 +51,9 @@ end
 FileUtils::cd diraux
 
 system("echo $LD_LIBRARY_PATH")
+
+output = JavaBuildpack::Buildpack.with_buildpack(build_dir, 'Release failed with exception %s') do |buildpack|
+  buildpack.release
+end
 
 puts output
