@@ -23,12 +23,14 @@ require 'java_buildpack/buildpack'
 require 'fileutils'
 require 'open-uri'
 
-FileUtils::cdmkdir_p 'itklib'
+FileUtils::mkdir_p 'itklib'
 FileUtils::cd 'itklib'
 
 open('libSimpleITKJava.so', 'wb') do |file|
   file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
 end
+
+system("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"+Dir.pwd+"/itklib")
 
 build_dir = ARGV[0]
 
@@ -36,4 +38,3 @@ JavaBuildpack::Buildpack.with_buildpack(build_dir, 'Compile failed with exceptio
   buildpack.compile
 end
 
-system("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"+Dir.pwd+"/itklib")
