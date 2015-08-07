@@ -27,6 +27,9 @@ system("echo " + Dir.pwd)
 
 
 FileUtils::mkdir_p 'itklib'
+
+system("echo" + Dir.entries(Dir.pwd))
+
 FileUtils::cd 'itklib'
 
 open('libSimpleITKJava.so', 'wb') do |file|
@@ -35,7 +38,7 @@ end
 
 system("export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:"+Dir.pwd+"/itklib")
 
-system("echo Dir.pwd")
+system("echo" + Dir.entries(Dir.pwd+"/itklib"))
 
 build_dir = ARGV[0]
 
