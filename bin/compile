@@ -26,23 +26,29 @@ require 'etc'
 
 build_dir = ARGV[0]
 
-system("echo " + build_dir)
+#system("echo " + build_dir)
 
-diraux = build_dir
+diraux = Dir.pwd
 
 FileUtils::cd build_dir
 
-FileUtils::mkdir_p 'itklib'
+#FileUtils::mkdir_p 'itklib'
+
+#for a in Dir.entries(Dir.pwd)
+	#system("echo " + a)
+#end
+
+#FileUtils::cd 'itklib'
+
+open('libSimpleITKJava.so', 'wb') do |file|
+  file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
+end
 
 for a in Dir.entries(Dir.pwd)
 	system("echo " + a)
 end
 
-FileUtils::cd 'itklib'
-
-open('libSimpleITKJava.so', 'wb') do |file|
-  file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
-end
+FileUtils::cd diraux
 
 JavaBuildpack::Buildpack.with_buildpack(build_dir, 'Compile failed with exception %s') do |buildpack|
   buildpack.compile
