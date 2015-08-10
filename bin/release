@@ -23,7 +23,7 @@ require 'java_buildpack/buildpack'
 
 build_dir = ARGV[0]
 
-ENV['LD_LIBRARY_PATH']=build_dir
+ENV['LD_LIBRARY_PATH']=build_dir+"/itklib"
 
 output = JavaBuildpack::Buildpack.with_buildpack(build_dir, 'Release failed with exception %s') do |buildpack|
   buildpack.release
