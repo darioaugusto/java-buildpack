@@ -61,10 +61,6 @@ module JavaBuildpack
           }
         }
 
-        open('libSimpleITKJava.so', 'wb') do |file|
-          file << open('http://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
-        end
-        
         ENV['LD_LIBRARY_PATH']=Dir.pwd
         
         for a in Dir.entries(Dir.pwd)
