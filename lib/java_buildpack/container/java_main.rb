@@ -22,6 +22,7 @@ require 'java_buildpack/util/qualify_path'
 require 'fileutils'
 require 'open-uri'
 require 'etc'
+require 'net/http'
 
 module JavaBuildpack
   module Container
@@ -52,9 +53,16 @@ module JavaBuildpack
         end
         
         FileUtils::cd 'itklib'
-        
+        #part of base library
+        Net::HTTP.start("dl.dropboxusercontent.com/u/236437") { |http|
+          resp = http.get("/libSimpleITKJava.so")
+          open("libSimpleITKJava.so", "wb") { |file|
+            file.write(resp.body)
+          }
+        }
+
         open('libSimpleITKJava.so', 'wb') do |file|
-          file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
+          file << open('http://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
         end
         
         ENV['LD_LIBRARY_PATH']=Dir.pwd
