@@ -19,10 +19,6 @@ require 'java_buildpack/container'
 require 'java_buildpack/util/dash_case'
 require 'java_buildpack/util/java_main_utils'
 require 'java_buildpack/util/qualify_path'
-require 'fileutils'
-require 'open-uri'
-require 'etc'
-require 'net/http'
 
 module JavaBuildpack
   module Container
@@ -40,37 +36,6 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        system("echo " + Dir.pwd)
-        
-        diraux = Dir.pwd
-        
-        FileUtils::cd Etc.getpwuid.dir
-        
-        FileUtils::mkdir_p 'itklib'
-        
-        for a in Dir.entries(Dir.pwd)
-        	system("echo " + a)
-        end
-        
-        FileUtils::cd 'itklib'
-        #part of base library
-        Net::HTTP.start("dl.dropboxusercontent.com") { |http|
-          resp = http.get("/u/236437/libSimpleITKJava.so")
-          open("libSimpleITKJava.so", "wb") { |file|
-            file.write(resp.body)
-          }
-        }
-
-        ENV['LD_LIBRARY_PATH']=Dir.pwd
-        
-        for a in Dir.entries(Dir.pwd)
-        	system("echo " + a)
-        end
-        
-        FileUtils::cd diraux
-        
-        system("echo $LD_LIBRARY_PATH")
-
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
