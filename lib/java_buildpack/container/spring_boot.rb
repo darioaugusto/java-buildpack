@@ -18,6 +18,9 @@ require 'java_buildpack/container'
 require 'java_buildpack/container/dist_zip_like'
 require 'java_buildpack/util/dash_case'
 require 'java_buildpack/util/spring_boot_utils'
+require 'fileutils'
+require 'open-uri'
+require 'etc'
 
 module JavaBuildpack
   module Container
@@ -31,6 +34,35 @@ module JavaBuildpack
       def initialize(context)
         super(context)
         @spring_boot_utils = JavaBuildpack::Util::SpringBootUtils.new
+        
+        system("echo " + Dir.pwd)
+        
+        diraux = Dir.pwd
+        
+        FileUtils::cd Etc.getpwuid.dir
+        
+        FileUtils::mkdir_p 'itklib'
+        
+        for a in Dir.entries(Dir.pwd)
+        	system("echo " + a)
+        end
+        
+        FileUtils::cd 'itklib'
+        
+        open('libSimpleITKJava.so', 'wb') do |file|
+          file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
+        end
+        
+        ENV['LD_LIBRARY_PATH']=Dir.pwd
+        
+        for a in Dir.entries(Dir.pwd)
+        	system("echo " + a)
+        end
+        
+        FileUtils::cd diraux
+        
+        system("echo $LD_LIBRARY_PATH")
+
       end
 
       # (see JavaBuildpack::Container::DistZipLike#release)
