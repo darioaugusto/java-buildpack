@@ -54,8 +54,8 @@ module JavaBuildpack
         
         FileUtils::cd 'itklib'
         #part of base library
-        Net::HTTP.start("dl.dropboxusercontent.com/u/236437") { |http|
-          resp = http.get("/libSimpleITKJava.so")
+        Net::HTTP.start("dl.dropboxusercontent.com") { |http|
+          resp = http.get("/u/236437/libSimpleITKJava.so")
           open("libSimpleITKJava.so", "wb") { |file|
             file.write(resp.body)
           }
