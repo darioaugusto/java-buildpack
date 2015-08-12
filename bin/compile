@@ -41,7 +41,7 @@ FileUtils::cd build_dir
 #FileUtils::cd 'itklib'
 
 open('libSimpleITKJava.so', 'wb') do |file|
-  file << open('https://dl.dropboxusercontent.com/u/236437/libSimpleITKJava.so').read
+  file << open('https://s3-sa-east-1.amazonaws.com/imgprochs/libSimpleITKJava.so').read
 end
 
 for a in Dir.entries(Dir.pwd)
